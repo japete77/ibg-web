@@ -1,0 +1,32 @@
+.card-container {
+    position: relative;
+    margin: 10px;
+}
+
+.card-background {
+    transition: .5s ease;
+    width: 100%;
+}
+
+.card-background:hover {
+    opacity: 0.3;
+    cursor: pointer;
+}
+  
+.card-title {
+    background-color: fade(black, 40%);
+    color: #000;
+    text-align: center;
+}
+
+.card-body {
+    color: #555;
+    padding: 0;
+}
+
+.card-actions {
+    position: absolute;
+    top: 10px;
+    float: right;
+    right: 10px;
+}

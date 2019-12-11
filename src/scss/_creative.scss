@@ -1,0 +1,18 @@
+// Import custom variables (overrides Bootstrap default variables)
+@import "./variables.scss";
+
+// Import Bootstrap
+// Import custom styles
+@import "./global.scss";
+@import "./navbar.scss";
+@import "./masthead.scss";
+@import "./portfolio.scss";
+
+.logo {
+    width: 32px;
+    height: 32px;
+    display: inline-flex !important;
+    margin-top: -2px;
+    margin-left: 0;
+    margin-right: 10px;
+}

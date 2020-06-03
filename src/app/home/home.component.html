@@ -1,0 +1,34 @@
+<div id="page-top">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" (click)="scroll(header)">
+                <img class="logo" src="assets/ibg-logo.svg" />
+                <span class="d-none d-sm-block"> Iglesia Bautista de la Gracia</span>
+            </a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive" #navbarResponsive>
+                <ul class="navbar-nav ml-auto my-2 my-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" (click)="scroll(gospel)">El Evangelio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" (click)="scroll(meetings)">Reuniones</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" (click)="scroll(sermons)">Mensajes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" (click)="scroll(contact)">Contacta</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <app-header></app-header>
+    <app-gospel></app-gospel>
+    <app-meetings></app-meetings>
+    <app-sermons></app-sermons>
+    <app-contact></app-contact>
+</div>

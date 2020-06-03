@@ -1,0 +1,19 @@
+@import 'scss/variables.scss';
+
+@import 'bootstrap/scss/bootstrap.scss';
+
+@import 'scss/global.scss';
+@import 'scss/masthead.scss';
+@import 'scss/navbar.scss';
+@import 'scss/portfolio.scss';
+@import 'scss/creative.scss';
+@import 'scss/card.scss';
+
+.map {
+    width: 100%;
+}
+
+.icon {
+    width: 64px;
+    margin-bottom: 20px;
+}

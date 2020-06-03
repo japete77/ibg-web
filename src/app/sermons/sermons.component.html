@@ -1,0 +1,35 @@
+<div class="page-section" id="messages">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h2 class="mt-0">Últimos Mensajes</h2>
+                <hr class="divider my-4" />
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div *ngFor="let item of sermons" class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card-container">
+                    <img class="card-background"
+                        src="{{getCoverUrl(item)}}"
+                        (click)="openUrl(item)"
+                    />
+                    <div class="card-actions">
+                        <a href="getWhatsAppUrl(item)">
+                            <img src="assets/icons/whatsapp.png" alt="" />
+                        </a>
+                    </div>
+                    <div class="card-title">
+                        <div class="title-header">{{item.Title}}</div>
+                        <div class="card-body">{{item.Text[0].Book}} {{item.Text[0].Chapter}}:{{item.Text[0].FromVerse}}{{(item.Text[0].ToVerse != item.Text[0].FromVerse) ? "-" + item.Text[0].ToVerse : ""}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div *ngIf="loading" class="spinner-border text-primary" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <a *ngIf="!loading" class="btn btn-primary btn-xl js-scroll-trigger" (click)="getNextSermons()">Ver más</a>
+        </div>
+    </div>
+</div>

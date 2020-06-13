@@ -19,4 +19,28 @@
             </div>
         </div>
     </div>
+    <div  *ngIf="liveEvent" class="container container-sermons">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h2 class="mt-0">Transmisión en directo</h2>
+                <hr class="divider my-4" />
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card-container">
+                    <img class="card-background" src="{{getLiveCoverUrl()}}" (click)="openLive()" />
+                    <div class="card-actions">
+                        <a [routerLink]="" (click)="shareLiveWhatsapp()">
+                            <img src="assets/icons/whatsapp.png" alt="" />
+                        </a>
+                    </div>
+                    <div class="card-title">
+                        <div class="title-header">{{liveEvent.snippet.title}}</div>
+                        <div class="card-body">{{liveEvent.snippet.description}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

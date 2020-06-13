@@ -1,0 +1,21 @@
+{
+  "controllers": [
+    {
+      "name": "SermonsV1",
+      "roles": [
+        "Anonymous"
+      ],
+      "actions": [
+        {
+          "name": "GetSermons"
+        },
+        {
+          "name": "GetSeries"
+        },
+        {
+          "name": "GetLive"
+        }
+      ]
+    }
+  ]
+}

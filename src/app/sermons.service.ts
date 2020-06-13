@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SermonsResponse } from './models/sermons-response';
+import { SermonsResponse, LiveResponse } from './models/sermons-response';
 
 @Injectable({
   providedIn: 'root'
@@ -8,14 +8,57 @@ export class SermonsService {
 
   constructor() { }
 
-  getSermons(page, pageSize, asc) : Promise<SermonsResponse> {
+  refresh(): Promise<void> {
     const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ "Page": page, "PageSize": pageSize, "Asc": asc })
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
     };
 
-    return fetch(`https://3j24yd0g7c.execute-api.eu-west-1.amazonaws.com/live/sermons`, requestOptions)
+    return fetch(`https://p8nmjahra1.execute-api.eu-west-1.amazonaws.com/Prod/api/v1/refresh`, requestOptions)
+        .then(this.handleResponse)
+        .then(() => {
+        })
+        .catch(() => {
+        });
+  }
+
+  getSermons(page, pageSize) : Promise<SermonsResponse> {
+    const requestOptions = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+    };
+
+    return fetch(`https://p8nmjahra1.execute-api.eu-west-1.amazonaws.com/Prod/api/v1/sermons?page=${page}&pageSize=${pageSize}`, requestOptions)
+        .then(this.handleResponse)
+        .then(response => {
+            return response;
+        })
+        .catch(error => {
+        });
+  }
+  
+  getSeries(page, pageSize) : Promise<SermonsResponse> {
+    const requestOptions = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+    };
+
+    return fetch(`https://p8nmjahra1.execute-api.eu-west-1.amazonaws.com/Prod/api/v1/series?page=${page}&pageSize=${pageSize}`, requestOptions)
+        .then(this.handleResponse)
+        .then(response => {
+            return response;
+        })
+        .catch(error => {
+        });
+  }
+
+  getLive() : Promise<LiveResponse> {
+    const requestOptions = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+    };
+
+    return fetch(`https://p8nmjahra1.execute-api.eu-west-1.amazonaws.com/Prod/api/v1/live`, requestOptions)
         .then(this.handleResponse)
         .then(response => {
             return response;

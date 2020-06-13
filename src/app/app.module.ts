@@ -9,6 +9,7 @@ import { ContactComponent } from './contact/contact.component';
 import { GospelComponent } from './gospel/gospel.component';
 import { SermonsComponent } from './sermons/sermons.component';
 import { MeetingsComponent } from './meetings/meetings.component';
+import { RefreshComponent } from './refresh/refresh.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { MeetingsComponent } from './meetings/meetings.component';
     ContactComponent,
     GospelComponent,
     SermonsComponent,
-    MeetingsComponent
+    MeetingsComponent,
+    RefreshComponent
   ],
   imports: [
     BrowserModule,

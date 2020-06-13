@@ -1,8 +1,11 @@
-import { Sermon } from './sermon';
+import { Item } from './youtube.models';
 
 export class SermonsResponse {
-    Page: number;
-    PageSize: number;
-    Total: number;
-    Sermons: Sermon[];
+    page: number;
+    total: number;
+    items: Item[];
+}
+
+export class LiveResponse {
+    live: Item;
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SermonsService } from '../sermons.service';
 import { Sermon } from '../models/sermon';
+import { YoutubeService } from '../youtube.service';
+import { Item } from '../models/youtube.models';
 
 @Component({
   selector: 'app-sermons',
@@ -9,44 +11,80 @@ import { Sermon } from '../models/sermon';
 })
 export class SermonsComponent implements OnInit {
 
-  currentPage = 1;
-  pageSize = 4;
-  sermons: Sermon[] = [];
-  loading: boolean;
+  currentPageSermons = 1;
+  pageSizeSermons = 4;
+  totalSermons: number;
+  sermons: Item[] = [];
+  loadingSermons: boolean;
+
+  currentPageSeries = 1;
+  pageSizeSeries = 4;
+  totalSeries: number;
+  series: Item[] = [];
+  loadingSeries: boolean;
 
   constructor(private sermonService: SermonsService) { }
 
   ngOnInit(): void {
-    this.getNextSermons();
+    this.getNextSermons()
+    this.getNextSeries()
   }
 
   getNextSermons() {
-    this.loading = true;
-    this.sermonService.getSermons(this.currentPage, this.pageSize, true)
-    .then(response  => {
-      if (this.sermons.length < response.Total) {
-        this.sermons = this.sermons.concat(response.Sermons);
-        this.currentPage++;  
+    this.loadingSermons = true;
+    this.sermonService.getSermons(this.currentPageSermons, this.pageSizeSermons)
+    .then(response => {
+      if (response.items && response.items.length > 0) {
+        this.sermons = this.sermons.concat(response.items);
+        this.currentPageSermons++;
+        this.totalSermons = response.total;
       }
     })
     .finally(() => {
-      this.loading = false;
+      this.loadingSermons = false;
     })
   }
 
-  getWhatsAppUrl(item) {
-    var url = encodeURI(item.Title + 'https://s3-eu-west-1.amazonaws.com/ibg-sermons/' + item.Date + '.mp3');
-    return `whatsapp://send?text=${url}`
+  getNextSeries() {
+    this.loadingSeries = true;
+    this.sermonService.getSeries(this.currentPageSeries, this.pageSizeSeries)
+    .then(response => {
+      if (response.items && response.items.length > 0) {
+        response.items = response.items.filter(val => val.id != 'PLsyYxX3AGlqF4KOZD8ZEr735427p92p0A');
+        this.series = this.series.concat(response.items);
+        this.currentPageSeries++;
+        this.totalSeries = response.total;
+      }
+    })
+    .finally(() => {
+      this.loadingSeries = false;
+    })
   }
 
-  getCoverUrl(item) {
-    var cover = item.Cover ? item.Cover : 'default-cover.jpg'
-    return `assets/covers/${cover}`
+  shareSermonWhatsapp(item: Item) {
+    let url = encodeURI(`https://www.youtube.com/watch?v=${item.id}`)
+    window.open(`whatsapp://send?text=${url}`);
   }
 
-  openUrl(item) {
+  shareSerieWhatsapp(item: Item) {
+    let url = encodeURI(`https://www.youtube.com/playlist?list=${item.id}`)
+    window.open(`whatsapp://send?text=${url}`);
+  }
+
+  getCoverUrl(item: Item) {
+    return item.snippet.thumbnails ? item.snippet.thumbnails.high.url : 'assets/covers/default-cover.jpg'
+  }
+
+  openSermonUrl(item: Item) {
     window.open(
-      'https://s3-eu-west-1.amazonaws.com/ibg-sermons/' + item.Date + '.mp3',
+      'https://www.youtube.com/watch?v=' + item.snippet.resourceId.videoId,
+      '_blank'
+    )
+  }
+
+  openSerieUrl(item: Item) {
+    window.open(
+      'https://www.youtube.com/playlist?list=' + item.id,
       '_blank'
     )
   }

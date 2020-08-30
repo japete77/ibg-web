@@ -10,6 +10,7 @@ import { GospelComponent } from './gospel/gospel.component';
 import { SermonsComponent } from './sermons/sermons.component';
 import { MeetingsComponent } from './meetings/meetings.component';
 import { RefreshComponent } from './refresh/refresh.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { RefreshComponent } from './refresh/refresh.component';
     GospelComponent,
     SermonsComponent,
     MeetingsComponent,
-    RefreshComponent
+    RefreshComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

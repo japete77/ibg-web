@@ -62,13 +62,12 @@ export class SermonsComponent implements OnInit {
   }
 
   shareSermonWhatsapp(item: Item) {
-    let url = encodeURI(`https://www.youtube.com/watch?v=${item.id}`)
+    let url = encodeURI(`https://www.youtube.com/watch?v=${item.snippet.resourceId.videoId}`)
     window.open(`whatsapp://send?text=${url}`);
   }
 
   shareSerieWhatsapp(item: Item) {
     let url = encodeURI(`https://www.youtube.com/playlist?list=${item.id}`)
-    window.open(`whatsapp://send?text=${url}`);
   }
 
   getCoverUrl(item: Item) {

@@ -1,5 +1,5 @@
 dotnet lambda deploy-serverless
 
-CloudFormation Template: gadb
+CloudFormation Template: ibg-sermons
 
-Bucket S3 to deploy package: gadb
+Bucket S3 to deploy package: ibg-sermons

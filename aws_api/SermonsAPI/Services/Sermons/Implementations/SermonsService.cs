@@ -62,40 +62,42 @@ namespace GlobalArticleDatabaseAPI.Services.Sermons.Implementations
 
     public async Task<GetSeriesResponse> GetSeries(int page, int pageSize)
     {
-      if (_series == null) await RefreshSeries();
+      //if (_series == null) await RefreshSeries();
 
-      if (_lastRefreshSeries < DateTime.UtcNow.AddDays(-1))
-      {
-        await CleanUpSeries();
-        await RefreshSeries();
-      }
+      //if (_lastRefreshSeries < DateTime.UtcNow.AddDays(-1))
+      //{
+      //  await CleanUpSeries();
+      //  await RefreshSeries();
+      //}
+      var _eries = await RetrieveSeriesFromYoutube();
 
-      var items = _series.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+      var items = _eries.Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
       return new GetSeriesResponse
       {
         CurrentPage = page,
-        Total = _series.Count,
+        Total = _eries.Count,
         Items = items
       };
     }
 
     public async Task<GetSermonsResponse> GetSermons(int page, int pageSize)
     {
-      if (_sermons == null) await RefreshSermons();
+      //if (_sermons == null) await RefreshSermons();
 
-      if (_lastRefreshSermons < DateTime.UtcNow.AddDays(-1))
-      {
-        await CleanUpSermons();
-        await RefreshSermons();
-      }
+      //if (_lastRefreshSermons < DateTime.UtcNow.AddDays(-1))
+      //{
+      //  await CleanUpSermons();
+      //  await RefreshSermons();
+      //}
+      var sermons = await RetrieveSermonsFromYoutube();
 
-      var items = _sermons.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+      var items = sermons.Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
       return new GetSermonsResponse
       {
         CurrentPage = page,
-        Total = _sermons.Count,
+        Total = sermons.Count,
         Items = items
       };
     }

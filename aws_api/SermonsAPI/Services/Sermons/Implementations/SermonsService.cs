@@ -331,6 +331,7 @@ namespace GlobalArticleDatabaseAPI.Services.Sermons.Implementations
 
       } while (nextTokenPage != null);
 
+      results.Reverse();
       return results;
     }
 

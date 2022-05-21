@@ -28,4 +28,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 For optimized verion use:
 
-ng build --prod --aot --build-optimizer
+ng build --configuration production --aot --build-optimizer

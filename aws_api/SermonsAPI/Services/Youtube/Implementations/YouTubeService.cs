@@ -47,12 +47,30 @@ namespace GlobalArticleDatabaseAPI.Services.Youtube.Implementations
       var url = $"playlistItems?part=snippet&playlistId={_settings.SermonsPlayListId}&maxResults=50&channelId={_settings.YouTubeChannelId}&key={_settings.YouTubeKey}";
       if (!string.IsNullOrEmpty(pageToken ))
       {
-        url += $"pageToken={pageToken}";
+        url += $"&pageToken={pageToken}";
       }
 
       var response = await _client.GetAsync(url);
 
-      return JsonConvert.DeserializeObject<GetItemsResponse>(await response.Content.ReadAsStringAsync());
+      var data = JsonConvert.DeserializeObject<GetItemsResponse>(await response.Content.ReadAsStringAsync());
+
+      data?.items?.ForEach(item =>
+      {
+        if (item!= null && item.snippet!= null && item.snippet.description != null)
+        {
+          var lines = item.snippet.description.Split(new string[] { "\n" }, StringSplitOptions.None);
+          if (lines.Length > 1)
+          {            
+            if (DateTime.TryParse(lines[1], out var date))
+            {
+              item.snippet.description = lines[0];
+              item.snippet.publishedAt = date;
+            }
+          }
+        }        
+      });
+
+      return data;
     }
   }
 }

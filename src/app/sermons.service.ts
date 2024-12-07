@@ -5,7 +5,7 @@ import { SermonsResponse, LiveResponse } from './models/sermons-response';
   providedIn: 'root'
 })
 export class SermonsService {
-
+  base_url = "https://ltljcp1myl.execute-api.eu-west-1.amazonaws.com/Prod/api/v1";
   constructor() { }
 
   refresh(): Promise<void> {
@@ -14,7 +14,7 @@ export class SermonsService {
         headers: { 'Content-Type': 'application/json' }
     };
 
-    return fetch(`https://p8nmjahra1.execute-api.eu-west-1.amazonaws.com/Prod/api/v1/refresh`, requestOptions)
+    return fetch(`${this.base_url}/refresh`, requestOptions)
         .then(this.handleResponse)
         .then(() => {
         })
@@ -28,7 +28,7 @@ export class SermonsService {
         headers: { 'Content-Type': 'application/json' }
     };
 
-    return fetch(`https://p8nmjahra1.execute-api.eu-west-1.amazonaws.com/Prod/api/v1/sermons?page=${page}&pageSize=${pageSize}`, requestOptions)
+    return fetch(`${this.base_url}/sermons?page=${page}&pageSize=${pageSize}`, requestOptions)
         .then(this.handleResponse)
         .then(response => {
             return response;
@@ -43,7 +43,7 @@ export class SermonsService {
         headers: { 'Content-Type': 'application/json' }
     };
 
-    return fetch(`https://p8nmjahra1.execute-api.eu-west-1.amazonaws.com/Prod/api/v1/series?page=${page}&pageSize=${pageSize}`, requestOptions)
+    return fetch(`${this.base_url}/series?page=${page}&pageSize=${pageSize}`, requestOptions)
         .then(this.handleResponse)
         .then(response => {
             return response;
@@ -58,7 +58,7 @@ export class SermonsService {
         headers: { 'Content-Type': 'application/json' }
     };
 
-    return fetch(`https://p8nmjahra1.execute-api.eu-west-1.amazonaws.com/Prod/api/v1/live`, requestOptions)
+    return fetch(`${this.base_url}/live`, requestOptions)
         .then(this.handleResponse)
         .then(response => {
             return response;

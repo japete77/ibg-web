@@ -83,13 +83,6 @@ namespace GlobalArticleDatabaseAPI.Services.Sermons.Implementations
 
     public async Task<GetSermonsResponse> GetSermons(int page, int pageSize)
     {
-      //if (_sermons == null) await RefreshSermons();
-
-      //if (_lastRefreshSermons < DateTime.UtcNow.AddDays(-1))
-      //{
-      //  await CleanUpSermons();
-      //  await RefreshSermons();
-      //}
       var sermons = await RetrieveSermonsFromYoutube();
 
       var items = sermons.Skip((page - 1) * pageSize).Take(pageSize).ToList();
@@ -132,7 +125,7 @@ namespace GlobalArticleDatabaseAPI.Services.Sermons.Implementations
           return;
         }
 
-        throw ex;
+        throw;
       }
     }
 
@@ -159,7 +152,7 @@ namespace GlobalArticleDatabaseAPI.Services.Sermons.Implementations
           return;
         }
 
-        throw ex;
+        throw;
       }
     }
 
@@ -186,7 +179,7 @@ namespace GlobalArticleDatabaseAPI.Services.Sermons.Implementations
           return;
         }
 
-        throw ex;
+        throw;
       }
     }
 
@@ -278,7 +271,7 @@ namespace GlobalArticleDatabaseAPI.Services.Sermons.Implementations
           return null;
         }
 
-        throw ex;
+        throw;
       }
     }
 

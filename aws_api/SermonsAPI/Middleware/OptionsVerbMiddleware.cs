@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 
 namespace GlobalArticleDatabaseAPI.Middleware
@@ -23,7 +23,7 @@ namespace GlobalArticleDatabaseAPI.Middleware
             if (context.Request.Method == "OPTIONS")
             {
                 context.Response.StatusCode = StatusCodes.Status200OK;
-                context.Response.Headers.Add("Access-Control-Allow-Methods", "*");
+                context.Response.Headers["Access-Control-Allow-Methods"] =  "*";
                 return Task.CompletedTask;
             }
             return _next.Invoke(context);

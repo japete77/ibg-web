@@ -1,32 +1,71 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: An AWS Serverless Application that uses the ASP.NET Core framework running
-  in Amazon Lambda.
+Description: >
+  An AWS Serverless Application that uses the ASP.NET Core framework running in Amazon Lambda.
+  This template includes an IAM Role with permissions for Lambda execution and full access to the
+  S3 bucket 'ibgracia-artifacts'.
+
 Resources:
+  # IAM Role for Lambda Execution
+  LambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: IBGRole
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Path: "/"
+      Policies:
+        - PolicyName: LambdaBasicExecutionPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              # Grants permissions to write logs to CloudWatch
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: "arn:aws:logs:*:*:*"
+        - PolicyName: S3FullAccessToArtifacts
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:*
+                Resource:
+                  - !Sub "arn:aws:s3:::ibgracia-artifacts"
+                  - !Sub "arn:aws:s3:::ibgracia-artifacts/*"
+
+  # Lambda Function
   AspNetCoreFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: not-required
-      Runtime: provided
-      CodeUri: 
-        Bucket: global-article-database
-        Key: package.zip
+      FunctionName: SermonsAPI
+      Handler: SermonsAPI::GlobalArticleDatabaseAPI.LambdaEntryPoint::FunctionHandlerAsync
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Runtime: dotnet8
       MemorySize: 256
       Timeout: 30
-      Role: arn:aws:iam::788955189299:role/IBGRole
-      Policies:
-      - AWSLambdaFullAccess
+      CodeUri:
+        Bucket: ibgracia-artifacts
+        Key: SermonsAPI.zip
+      Tags:
+        Environment: Production
       Events:
-        ProxyResource:
+        ApiEvent:
           Type: Api
           Properties:
-            Path: "/{proxy+}"
+            Path: /{proxy+}
             Method: ANY
-        RootResource:
-          Type: Api
-          Properties:
-            Path: "/"
-            Method: ANY
+
 Outputs:
   ApiURL:
     Description: API endpoint URL for Prod environment

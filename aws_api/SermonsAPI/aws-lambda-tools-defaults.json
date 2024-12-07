@@ -8,11 +8,11 @@
   "profile": "default",
   "region": "eu-west-1",
   "configuration": "Release",
-  "framework": "netcoreapp3.1",
+  "framework": "net8.0",
   "template": "serverless.template",
+  "function-runtime": "dotnet8",
   "function-memory-size": 256,
   "function-timeout": 30,
-  "function-handler": "not_required_for_custom_runtime",
-  "function-name": "SermonsAPI",
-  "msbuild-parameters": "--self-contained true"
+  "function-handler": "SermonsAPI::SermonsAPI.Function::FunctionHandler",
+  "function-name": "SermonsAPI"
 }
